@@ -12,22 +12,28 @@ namespace HelloXamarin
         public App()
         {
             // The root page of your application
-            var content = new ContentPage
+            MainPage = new ContentPage
             {
-                Title = "HelloXamarin",
                 Content = new StackLayout
                 {
                     VerticalOptions = LayoutOptions.Center,
                     Children = {
                         new Label {
                             HorizontalTextAlignment = TextAlignment.Center,
-                            Text = "Welcome to Xamarin Forms!"
+                            Text = "Mirrin eka Xamarin äppi!",
+                            TextColor = Color.Purple,
+                            BackgroundColor = Color.Gray
+                        },
+
+                        new Label {
+                            HorizontalTextAlignment = TextAlignment.Center,
+                            Text = "Sovellusversio 0.10",
+                            TextColor = Color.Silver,
+                            BackgroundColor = Color.Pink
                         }
                     }
                 }
             };
-
-            MainPage = new NavigationPage(content);
         }
 
         protected override void OnStart()
