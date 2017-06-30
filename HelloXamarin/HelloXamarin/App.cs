@@ -9,8 +9,30 @@ namespace HelloXamarin
 {
     public class App : Application
     {
+        private Entry syötekenttä;
+        private Label arvauksenTulosLabel;
+
+        private int oikeaLuku;
+
         public App()
         {
+            Random rnd = new Random();
+            oikeaLuku = rnd.Next(1, 21);
+
+            // painonapin alustus
+            Button arvaaNappi = new Button();
+            arvaaNappi.Text = "Arvaa";
+            arvaaNappi.Clicked += ArvaaNappi_Clicked;
+
+            syötekenttä = new Entry
+            {
+                Keyboard = Keyboard.Numeric,
+                Text = ""
+            };
+
+            arvauksenTulosLabel = new Label();
+            arvauksenTulosLabel.Text = "";
+
             // The root page of your application
             MainPage = new ContentPage
             {
@@ -20,21 +42,40 @@ namespace HelloXamarin
                     Children = {
                         new Label {
                             HorizontalTextAlignment = TextAlignment.Center,
-                            Text = "Mirrin eka Xamarin äppi!",
-                            TextColor = Color.Purple,
-                            BackgroundColor = Color.Gray
+                            Text = "Arvaa luku -peli",
+                            TextColor = Color.Purple
                         },
-
                         new Label {
                             HorizontalTextAlignment = TextAlignment.Center,
                             Text = "Sovellusversio 0.10",
-                            TextColor = Color.Silver,
-                            BackgroundColor = Color.Pink
-                        }
+                            TextColor = Color.Silver
+                        },
+                        syötekenttä,
+                        arvaaNappi,
+                        arvauksenTulosLabel
                     }
                 }
             };
         }
+
+        private void ArvaaNappi_Clicked(object sender, EventArgs e)
+        {
+            int arvaus = int.Parse(syötekenttä.Text);
+            if (arvaus < oikeaLuku)
+            {
+                arvauksenTulosLabel.Text = "Luku on suurempi.";
+            }
+            else if (arvaus > oikeaLuku)
+            {
+                arvauksenTulosLabel.Text = "Luku on pienempi.";
+            }
+            else if (arvaus == oikeaLuku)
+            {
+                arvauksenTulosLabel.Text = "OIKEIN! :)";
+                Random rnd = new Random();
+                oikeaLuku = rnd.Next(1, 21);
+            }
+    }
 
         protected override void OnStart()
         {
